@@ -2,33 +2,34 @@
 
 def count_letters(text): #Создаём функцию для создания словаря с буквами и их количеством
     letters_count = {} #Создаём пустой словарь
-    letters = [] #Создаём
+    letters = [] #Создаём список для размещения всех букв в том же порядке, что и в тексте
 
-    for i in text.lower():
-        if i.isalpha() and i not in letters:
+    for i in text.lower(): #Условие для заполнения списка букв с помощью текста, где все буквы в нижнем регистре
+        if i.isalpha() and i not in letters: #Если символ является буквой и его нет в списке, то добавляем его
             letters.append(i)
 
-    for i in letters:
+    for i in letters: #Для всех букв в списке считает их количество и добавляем в словарь элемент, у которого ключ - буква, а значение - количество
         letters_count[i] = text.lower().count(i)
 
-    return letters_count
+    return letters_count #Возвращаем словарь
 
 # TODO Напишите функцию calculate_frequency
 
-def calculate_frequency(dictionary):
-    letters_frequency = {}
-    count = 0
+def calculate_frequency(dictionary): #Создаём функицю для создания словаря с частотой букв
+    letters_frequency = {} #Словарь с частотой букв
+    count = 0 #Количество всех букв
 
-    for i in dictionary:
+    for i in dictionary: #Находим количество букв, складывая все значения из словаря с количествами букв
         count += dictionary[i]
 
-    for i in dictionary:
-        if round(dictionary[i]/count, 2) == 0:
+    for i in dictionary: #Заполняем словарь с частотами, взяв ключи из словаря с количествами
+        if round(dictionary[i]/count, 2) == 0: #Если при округлении частоты получается 0, то присваиваем значение частоты с двумя незначащими нулями
+                                                #потому что функция round убирает один
             letters_frequency[i] = '0.00'
-        else:
+        else: #А если не 0, то присваиваем округлённое значение
             letters_frequency[i] = round(dictionary[i]/count, 2)
 
-    return letters_frequency
+    return letters_frequency потому #Возвращаем словарь
 
 
 main_str = """
@@ -69,5 +70,14 @@ main_str = """
 
 # TODO Распечатайте в столбик букву и её частоту в тексте
 
-for i in calculate_frequency(count_letters((main_str))):
+for i in calculate_frequency(count_letters((main_str))): 
+    #Выводим в столбик в нужном формате буквы и частоты, вызывая функцию для составления словаря с частотами,
+    #в качестве значения аргумента присваивая словарь, возвращаемый функцией для составления словаря с количествами,
+    #аргументу которой в свою очередь присваивается нужный текст, и выводим частоту, взяв из этого словаря текущий элемент 
+    #из словаря с частотами, полученный вызовом функции для составления словаря с частотами,
+    #в качестве значения аргумента присваивая словарь, возвращаемый функцией для составления словаря с количествами,
+    #аргументу которой в свою очередь присваивается нужный текст
+
+    #Извините за такой комментарий, но там всё правильно и по факту
+    
     print(i + ':', calculate_frequency(count_letters((main_str)))[i])
